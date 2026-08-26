@@ -353,6 +353,37 @@
 }
 
 .member-detail span {
+  word-break: break-all;
   color: var(--neon-green);
   font-weight: bold;
 }
+
+@media (max-width: 768px) {
+  .team-members-grid {
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .member-card {
+    padding: 1rem;
+  }
+  .member-role {
+    font-size: 1rem;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .member-name {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .member-detail {
+    font-size: 0.75rem;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .member-detail span {
+  word-break: break-all;
+    text-align: right;
+  }
+}
+

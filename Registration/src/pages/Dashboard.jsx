@@ -101,11 +101,11 @@ const Dashboard = () => {
           </button>
         </div>
 
-        <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: '2rem', marginTop: 0, textShadow: '4px 4px 0px rgba(0,0,0,0.8)', wordBreak: 'break-word' }}>
+        <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: '1.5rem', marginTop: 0, textShadow: '3px 3px 0px rgba(0,0,0,0.8)', wordBreak: 'break-word' }}>
           DASHBOARD
         </h1>
         
-        <p style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.8rem', wordBreak: 'break-all', color: '#ccc' }}>
+        <p style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.65rem', wordBreak: 'break-all', color: '#ccc' }}>
           Logged in as: <span style={{ color: 'white' }}>{session?.user?.email}</span>
         </p>
 
@@ -127,9 +127,9 @@ const Dashboard = () => {
               <div className="member-card">
                 <div className="member-role leader">Leader</div>
                 <div className="member-name">{team.leader_name}</div>
-                <div className="member-detail">Gender: <span>{team.leader_gender}</span></div>
+                <div className="member-detail">Email: <span>{team.leader_email}</span></div>
+                <div className="member-detail">Mobile: <span>{team.leader_phone}</span></div>
                 <div className="member-detail">Stream: <span>{team.leader_stream}</span></div>
-                <div className="member-detail">Year: <span>{team.leader_year}</span></div>
               </div>
 
               {/* MEMBER CARDS */}
@@ -137,9 +137,9 @@ const Dashboard = () => {
                 <div key={index} className="member-card">
                   <div className="member-role">Member {index + 1}</div>
                   <div className="member-name">{member.name || 'N/A'}</div>
-                  <div className="member-detail">Gender: <span>{member.gender || 'N/A'}</span></div>
+                  <div className="member-detail">Email: <span>{member.email || 'N/A'}</span></div>
+                  <div className="member-detail">Mobile: <span>{member.phone || 'N/A'}</span></div>
                   <div className="member-detail">Stream: <span>{member.stream || 'N/A'}</span></div>
-                  <div className="member-detail">Year: <span>{member.year || 'N/A'}</span></div>
                 </div>
               ))}
               
