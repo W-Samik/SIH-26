@@ -121,7 +121,42 @@ const Dashboard = () => {
               TEAM: <span style={{ color: 'var(--neon-green)' }}>{team.team_name}</span>
             </h2>
             
-            <div className="team-members-grid">
+            <div className="dashboard-desktop-table">
+              <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#111', borderRadius: '10px', overflow: 'hidden', fontSize: '0.95rem' }}>
+                <thead>
+                  <tr style={{ backgroundColor: 'var(--solid-bg)', borderBottom: '2px solid var(--pixel-border)' }}>
+                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Role</th>
+                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Name</th>
+                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Email</th>
+                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Mobile</th>
+                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Stream</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* LEADER */}
+                  <tr style={{ borderBottom: '1px solid #333' }}>
+                    <td style={{ padding: '0.75rem', color: '#bd84db', fontWeight: 'bold' }}>Leader</td>
+                    <td style={{ padding: '0.75rem' }}>{team.leader_name}</td>
+                    <td style={{ padding: '0.75rem' }}>{team.leader_email}</td>
+                    <td style={{ padding: '0.75rem' }}>{team.leader_phone}</td>
+                    <td style={{ padding: '0.75rem' }}>{team.leader_stream}</td>
+                  </tr>
+                  
+                  {/* MEMBERS */}
+                  {team.members_data && Array.isArray(team.members_data) && team.members_data.map((member, index) => (
+                    <tr key={index} style={{ borderBottom: '1px solid #333' }}>
+                      <td style={{ padding: '0.75rem', color: '#888' }}>Member {index + 1}</td>
+                      <td style={{ padding: '0.75rem' }}>{member.name || 'N/A'}</td>
+                      <td style={{ padding: '0.75rem' }}>{member.email || 'N/A'}</td>
+                      <td style={{ padding: '0.75rem' }}>{member.phone || 'N/A'}</td>
+                      <td style={{ padding: '0.75rem' }}>{member.stream || 'N/A'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="dashboard-mobile-cards team-members-grid">
               
               {/* LEADER CARD */}
               <div className="member-card">
