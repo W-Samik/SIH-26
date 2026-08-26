@@ -289,6 +289,9 @@ h1, h2, h3, h4, p, span, button, a {
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
   transition: all 0.1s;
   background: #000;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
 }
 
 .pixel-btn:hover {
