@@ -1,0 +1,367 @@
+/* ==================================================
+   NEW SECTIONS CSS 
+================================================== */
+
+/* ORGANISERS SECTION (Double Cutout) */
+.organisers-section {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color); /* Black space behind */
+  display: flex;
+  flex-direction: column;
+}
+
+.org-top-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
+}
+
+.org-bottom-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-top-left-radius: 80px;
+  border-top-right-radius: 80px;
+}
+
+.org-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 2rem 4rem;
+}
+
+.org-static-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.org-placeholder-img {
+  width: 320px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.org-cross {
+  font-size: 4rem;
+  color: var(--neon-green);
+  font-family: var(--font-pixel);
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.8);
+}
+
+.org-marquee-container {
+  width: 100%;
+  overflow: hidden;
+  /* Fade effect on left and right edges */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.org-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll-marquee 20s linear infinite;
+}
+
+.org-marquee-content {
+  display: flex;
+  gap: 3rem;
+  padding-right: 3rem;
+}
+
+.org-logo-box {
+  width: 240px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.org-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.nexus-img {
+  height: 130%; /* Increase size slightly more as it's absolute now */
+  padding: 0;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.nexus-text {
+  color: #bd84db;
+  margin: 0;
+  font-family: var(--font-pixel);
+  font-size: 1.3rem;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+  text-align: center;
+  position: absolute;
+  bottom: 0px; /* Align with bottom of DSEU text */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 100%;
+}
+
+.org1-fix {
+  transform: translateY(-20px);
+}
+
+@keyframes scroll-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+
+/* TIMELINE SECTION (Right Cutout) */
+.timeline-section {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.tl-top-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-bottom-right-radius: 80px;
+}
+
+.tl-bottom-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-top-right-radius: 80px;
+}
+
+.tl-middle {
+  flex: 1;
+  display: flex;
+  width: 100%;
+}
+
+.tl-middle-left {
+  flex: 1.2;
+  background-color: var(--solid-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem 1rem 4rem;
+  color: white;
+}
+
+.tl-middle-left h2 {
+  font-size: 2.5rem;
+  color: var(--neon-green);
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.timeline-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.tl-date {
+  width: 100px;
+  text-align: right;
+  font-size: 1.2rem;
+  padding-top: 5px;
+}
+
+.tl-node-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tl-node {
+  width: 20px;
+  height: 20px;
+  background-color: var(--neon-green);
+  border-radius: 50%;
+  border: 4px solid var(--solid-bg);
+  box-shadow: 0 0 0 2px var(--pixel-border);
+}
+
+.tl-line {
+  width: 4px;
+  height: 80px; /* spacing between nodes */
+  background-color: var(--pixel-border);
+  margin: 5px 0;
+}
+
+.tl-event {
+  flex: 1;
+  border: 4px solid var(--pixel-border);
+  padding: 1rem;
+  background-color: #111;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.tl-middle-right {
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.tl-image-box {
+  width: 100%;
+  height: 100%;
+  border: 4px solid var(--pixel-border);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+
+.tl-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+
+/* RULE SECTION (Full Solid) */
+.rule-section {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--solid-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+}
+
+.rule-title {
+  font-size: 3rem;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 3rem;
+}
+
+.rule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  flex: 1;
+}
+
+.rule-card {
+  border: 4px solid var(--pixel-border);
+  background-color: #111;
+  padding: 1.5rem;
+  color: white;
+  border-radius: 10px;
+}
+
+.rule-card h3 {
+  color: var(--neon-green);
+  margin-top: 0;
+}
+
+
+/* TEAM SECTION (Double Cutout) */
+.team-section {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.team-top-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-bottom-left-radius: 80px;
+  border-bottom-right-radius: 80px;
+}
+
+.team-bottom-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-top-left-radius: 80px;
+  border-top-right-radius: 80px;
+}
+
+.team-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.team-title {
+  font-size: 3rem;
+  color: white;
+  margin: 0;
+  text-shadow: 4px 4px 0px rgba(0,0,0,0.8);
+}
+
+.team-image-box {
+  width: 300px;
+  height: 200px;
+  border: 4px solid var(--pixel-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 20px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.team-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.team-btn {
+  background: transparent;
+  border: 4px solid white;
+  color: white;
+  padding: 1rem 2rem;
+  font-family: var(--font-pixel);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.team-btn:hover {
+  background: white;
+  color: black;
+}

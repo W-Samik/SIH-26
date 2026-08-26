@@ -1,0 +1,312 @@
+:root {
+  --neon-green: #a4f21d;
+  --pixel-border: #ffffff;
+  --bg-color: #000000;
+  --solid-bg: #1a1a24;
+  --font-pixel: 'Press Start 2P', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-color);
+  color: white;
+  font-family: var(--font-pixel);
+  overflow-x: hidden; 
+}
+
+h1, h2, h3, h4, p, span, button, a {
+  font-family: var(--font-pixel);
+  letter-spacing: 1px;
+}
+
+.app-container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout Sections */
+.top-section {
+  position: relative;
+  width: 100%;
+  height: 65vh; /* Adjusted to balance screen */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-section {
+  position: relative;
+  width: 100%;
+  height: 35vh;
+  background-color: var(--solid-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1.5rem;
+  z-index: 10;
+  border-top: 4px solid var(--pixel-border);
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+}
+
+/* Background image handling for top section */
+.space-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Swap dimensions because of the 90deg rotation */
+  width: 65vh; 
+  height: 100vw;
+  transform: translate(-50%, -50%) rotate(90deg);
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Earth image positioning */
+.earth-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 60vw;
+  max-width: 800px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.earth-image {
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated; 
+  animation: slow-spin 180s linear infinite;
+  filter: drop-shadow(0 -15px 40px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 20px rgba(0, 0, 0, 0.8));
+}
+
+/* UI Elements */
+.title-container {
+  position: relative;
+  z-index: 10;
+  margin-top: 5rem;
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo-box {
+  border: 4px solid var(--pixel-border);
+  background: #000000;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+  display: inline-block;
+}
+
+.sih-logo {
+  max-width: 150px;
+  height: auto;
+  display: block;
+}
+
+.title-box {
+  border: 4px solid var(--pixel-border);
+  background: #000000;
+  padding: 1.25rem 2rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+}
+.title-box h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: white;
+}
+
+.year-box {
+  border: 4px solid var(--pixel-border);
+  background: #000000;
+  padding: 0.75rem 1rem;
+  margin-left: 0;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+}
+.year-box h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* About Section */
+.about-section {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-color); /* Shows through the unshaded cutout */
+  display: flex;
+  flex-direction: column;
+}
+
+.about-top-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-bottom-left-radius: 80px;
+}
+
+.about-middle {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex: 1;
+}
+
+.about-middle-left {
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.about-middle-right {
+  flex: 1;
+  background-color: var(--solid-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 4rem 1rem 3rem;
+  color: white;
+}
+
+.about-bottom-bar {
+  width: 100%;
+  height: 80px;
+  background-color: var(--solid-bg);
+  border-top-left-radius: 80px;
+}
+
+/* Image Box (inside left unshaded area) */
+.about-image-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-logo {
+  max-width: 280px;
+  height: auto;
+  margin-bottom: 2rem;
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.8));
+}
+
+.about-image-box p {
+  text-align: center;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: white;
+  margin: 0;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+}
+
+/* About Text */
+.about-middle-right h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--neon-green);
+  margin-top: 0;
+}
+
+.about-middle-right p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+.nav-pill {
+  background: #fdf6e3; 
+  border-radius: 40px;
+  padding: 0.5rem 2rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  border: 4px solid #000;
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.8);
+  margin-bottom: 1.5rem;
+}
+
+.nav-item {
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.nav-item:hover {
+  transform: translateY(-2px);
+  color: #333;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 2rem; /* Creates visible space between buttons */
+  margin-top: 0.5rem;
+}
+
+.pixel-btn {
+  border: 4px solid var(--pixel-border);
+  color: white;
+  padding: 1rem 2.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.8);
+  transition: all 0.1s;
+  background: #000;
+}
+
+.pixel-btn:hover {
+  background: #222;
+  color: var(--neon-green);
+  border-color: var(--neon-green);
+}
+
+.pixel-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.8);
+}
+
+/* User pill in top right */
+.user-pill {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  border: 3px solid var(--pixel-border);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.5rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+}
+.user-pill:hover {
+  background: rgba(255,255,255,0.2);
+}
