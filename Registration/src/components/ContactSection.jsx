@@ -4,21 +4,25 @@ import '../styles/sections.css';
 const ContactSection = () => {
   return (
     <div id="contact" className="contact-section">
-      <div className="contact-content">
-        <h2 className="contact-title">Contact Us</h2>
-        <div className="contact-info">
-          <p>
-            Ankit Ghosh: 9354031843<br/>
-            <span style={{ color: 'var(--neon-green)' }}>gankitsysdev@gmail.com</span>
-          </p>
-          <p>
-            Samik: 8920341517<br/>
-            <span style={{ color: 'var(--neon-green)' }}>sam8920341517@gmail.com</span>
-          </p>
-          <p>
-            Rishi Yadav: 9205089291<br/>
-            <span style={{ color: 'var(--neon-green)' }}>rishiry6789@gmail.com</span>
-          </p>
+      <h2 className="contact-title">Contact Us</h2>
+      
+      <div className="contact-grid">
+        <div className="contact-card">
+          <h3>Ankit Ghosh</h3>
+          <p>9354031843</p>
+          <div className="contact-email">gankitsysdev@gmail.com</div>
+        </div>
+        
+        <div className="contact-card">
+          <h3>Rishi Yadav</h3>
+          <p>9205089291</p>
+          <div className="contact-email">rishiry6789@gmail.com</div>
+        </div>
+
+        <div className="contact-card">
+          <h3>Samik</h3>
+          <p>8920341517</p>
+          <div className="contact-email">sam8920341517@gmail.com</div>
         </div>
       </div>
     </div>
