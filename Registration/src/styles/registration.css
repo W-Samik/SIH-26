@@ -278,3 +278,27 @@
   background-color: red;
   color: white;
 }
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+  .registration-page {
+    padding: 1rem;
+  }
+  .registration-container {
+    padding: 1rem;
+  }
+  .reg-title {
+    font-size: 1.5rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .member-card {
+    padding: 1rem;
+  }
+  .submit-btn {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}

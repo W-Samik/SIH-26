@@ -24,7 +24,7 @@ const Registration = () => {
             .from('registrations')
             .select('team_name')
             .or(`leader_email.eq.${email},members_data.cs.[{"email": "${email}"}]`);
-          
+
           if (error) throw error;
           if (data && data.length > 0) {
             setAlreadyRegistered(true);
@@ -133,7 +133,7 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    
+
     setLoading(true);
 
     try {
@@ -170,13 +170,13 @@ const Registration = () => {
         const phone = allPhones[idx];
         const name = allNames[idx];
         // Ensure name doesn't contain commas to prevent breaking the .or() parser
-        const safeName = name.replace(/,/g, ''); 
-        
+        const safeName = name.replace(/,/g, '');
+
         const { data, error } = await supabase
           .from('registrations')
           .select('team_name')
           .or(`leader_email.eq.${email},members_data.cs.[{"email":"${email}"}],leader_phone.eq.${phone},members_data.cs.[{"phone":${phone}}],leader_name.eq."${safeName}",members_data.cs.[{"name":"${safeName}"}]`);
-        
+
         if (error) throw error;
         if (data && data.length > 0) {
           return { email, phone, name, team: data[0].team_name };
@@ -258,10 +258,10 @@ const Registration = () => {
             You must log in with your Google account before you can register a team.
           </p>
           <button className="submit-btn" onClick={async () => {
-             await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.origin + '/register' }
-             });
+            await supabase.auth.signInWithOAuth({
+              provider: 'google',
+              options: { redirectTo: window.location.origin + '/register' }
+            });
           }} style={{ marginBottom: '1rem' }}>
             LOGIN WITH GOOGLE
           </button>
@@ -279,7 +279,7 @@ const Registration = () => {
         <div className="registration-container" style={{ textAlign: 'center' }}>
           <h2 className="reg-title" style={{ color: 'red' }}>ALREADY REGISTERED</h2>
           <p style={{ margin: '2rem 0', fontSize: '1.2rem' }}>
-            You are already registered as a member of a team.<br/>
+            You are already registered as a member of a team.<br />
             A person can only participate in one team at a time.
           </p>
           <button className="submit-btn" onClick={() => navigate('/dashboard')} style={{ marginBottom: '1rem' }}>
@@ -297,7 +297,7 @@ const Registration = () => {
     <div className="registration-page">
       <div className="registration-container">
         <button className="back-btn" onClick={() => navigate('/')}>&lt; Back to Home</button>
-        
+
         <h2 className="reg-title">REGISTRATION</h2>
         <div className="reg-notice">
           NOTICE: This registration form must be filled out by the Team Leader ONLY.
@@ -314,7 +314,7 @@ const Registration = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          
+
           <div className="reg-section">
             <h3>Team Details</h3>
             <div className="form-group">
@@ -325,16 +325,16 @@ const Registration = () => {
 
           <div className="reg-section">
             <h3>Team Leader (You)</h3>
-            
+
             <div className="form-group">
               <label>Full Name *</label>
-              <input type="text" value={leader.name} onChange={e => setLeader({...leader, name: e.target.value})} />
+              <input type="text" value={leader.name} onChange={e => setLeader({ ...leader, name: e.target.value })} />
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label>Gender *</label>
-                <select value={leader.gender} onChange={e => setLeader({...leader, gender: e.target.value})}>
+                <select value={leader.gender} onChange={e => setLeader({ ...leader, gender: e.target.value })}>
                   <option value="">Select</option>
                   <option value="M">Male (M)</option>
                   <option value="F">Female (F)</option>
@@ -343,39 +343,37 @@ const Registration = () => {
               </div>
               <div className="form-group">
                 <label>Mobile No. *</label>
-                <input type="tel" maxLength="10" value={leader.phone} onChange={e => setLeader({...leader, phone: e.target.value.replace(/\D/g, '')})} />
+                <input type="tel" maxLength="10" value={leader.phone} onChange={e => setLeader({ ...leader, phone: e.target.value.replace(/\D/g, '') })} />
               </div>
             </div>
 
             <div className="form-group">
               <label>Email ID *</label>
-              <input type="email" value={leader.email} onChange={e => setLeader({...leader, email: e.target.value})} />
+              <input type="email" value={leader.email} onChange={e => setLeader({ ...leader, email: e.target.value })} />
             </div>
 
             <div className="form-row">
               <div className="form-group stream-group">
                 <label>Stream / Course *</label>
-                <select value={leader.stream} onChange={e => setLeader({...leader, stream: e.target.value})}>
+                <select value={leader.stream} onChange={e => setLeader({ ...leader, stream: e.target.value })}>
                   <option value="">Select Course</option>
-                  <option value="B.Tech CSE">B.Tech CSE</option>
-                  <option value="B.Tech IT">B.Tech IT</option>
-                  <option value="B.Tech ECE">B.Tech ECE</option>
-                  <option value="B.Tech ME">B.Tech ME</option>
+                  <option value="B.Tech AIML">B.Tech AI</option>
+                  <option value="B.Tech DS">B.Tech DS</option>
                   <option value="BCA">BCA</option>
                   <option value="MCA">MCA</option>
                   <option value="BBA">BBA</option>
-                  <option value="Other">Other</option>
+                  <option value="MBA">MBA</option>
+                  <option value="B.Sc">B.Sc DA</option>
                 </select>
               </div>
               <div className="form-group year-group">
                 <label>Academic Year *</label>
-                <select value={leader.year} onChange={e => setLeader({...leader, year: e.target.value})}>
+                <select value={leader.year} onChange={e => setLeader({ ...leader, year: e.target.value })}>
                   <option value="">Select</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  <option value="5">5</option>
                 </select>
               </div>
             </div>
@@ -383,14 +381,14 @@ const Registration = () => {
 
           <div className="reg-section">
             <h3>Team Members ({members.length}/5)</h3>
-            
+
             {members.map((member, index) => (
               <div key={index} className="member-card">
                 <div className="member-header">
                   <h4>Member {index + 1}</h4>
                   <button type="button" className="remove-btn" onClick={() => handleRemoveMember(index)}>Remove X</button>
                 </div>
-                
+
                 <div className="form-group">
                   <label>Full Name *</label>
                   <input type="text" value={member.name} onChange={e => updateMember(index, 'name', e.target.value)} />
@@ -421,15 +419,13 @@ const Registration = () => {
                   <div className="form-group stream-group">
                     <label>Stream / Course *</label>
                     <select value={member.stream} onChange={e => updateMember(index, 'stream', e.target.value)}>
-                      <option value="">Select Course</option>
-                      <option value="B.Tech CSE">B.Tech CSE</option>
-                      <option value="B.Tech IT">B.Tech IT</option>
-                      <option value="B.Tech ECE">B.Tech ECE</option>
-                      <option value="B.Tech ME">B.Tech ME</option>
+                      <option value="B.Tech AIML">B.Tech AI</option>
+                      <option value="B.Tech DS">B.Tech DS</option>
                       <option value="BCA">BCA</option>
                       <option value="MCA">MCA</option>
                       <option value="BBA">BBA</option>
-                      <option value="Other">Other</option>
+                      <option value="MBA">MBA</option>
+                      <option value="B.Sc">B.Sc DA</option>
                     </select>
                   </div>
                   <div className="form-group year-group">
@@ -440,7 +436,6 @@ const Registration = () => {
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
-                      <option value="5">5</option>
                     </select>
                   </div>
                 </div>

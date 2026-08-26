@@ -9,6 +9,7 @@ import OrganisersSection from '../components/OrganisersSection';
 import TimelineSection from '../components/TimelineSection';
 import RuleSection from '../components/RuleSection';
 import TeamSection from '../components/TeamSection';
+import ContactSection from '../components/ContactSection';
 
 const Landing = () => {
   return (
@@ -36,6 +37,7 @@ const Landing = () => {
       <TimelineSection />
       <RuleSection />
       <TeamSection />
+      <ContactSection />
 
     </div>
   );
