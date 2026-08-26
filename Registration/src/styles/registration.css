@@ -302,3 +302,57 @@
     padding: 1rem;
   }
 }
+
+/* ==================================================
+   DASHBOARD TEAM CARDS
+================================================== */
+.team-members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.member-card {
+  background-color: #111;
+  border: 4px solid var(--pixel-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.member-role {
+  font-family: var(--font-pixel);
+  font-size: 1.2rem;
+  color: #888;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.member-role.leader {
+  color: #bd84db;
+}
+
+.member-name {
+  font-family: var(--font-pixel);
+  font-size: 1.3rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.member-detail {
+  font-size: 0.9rem;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+
+.member-detail span {
+  color: var(--neon-green);
+  font-weight: bold;
+}

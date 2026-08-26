@@ -59,7 +59,8 @@ const Dashboard = () => {
 
   return (
     <div style={{ 
-      minHeight: '100vh', 
+      minHeight: '100vh',
+      width: '100%',
       backgroundImage: `url(${pixelSpace})`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
@@ -84,25 +85,29 @@ const Dashboard = () => {
         position: 'relative'
       }}>
         
-        <button 
-          onClick={() => navigate('/')} 
-          style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', background: 'transparent', color: 'white', border: 'none', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
-        >
-          &lt; BACK
-        </button>
-        
-        <button 
-          onClick={handleLogout} 
-          style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'transparent', color: 'var(--neon-green)', border: '2px solid var(--neon-green)', padding: '0.4rem 0.8rem', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
-        >
-          LOGOUT
-        </button>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <button 
+            onClick={() => navigate('/')} 
+            style={{ background: 'transparent', color: 'white', border: 'none', fontFamily: 'var(--font-pixel)', cursor: 'pointer', padding: 0 }}
+          >
+            &lt; BACK
+          </button>
+          
+          <button 
+            onClick={handleLogout} 
+            style={{ background: 'transparent', color: 'var(--neon-green)', border: '2px solid var(--neon-green)', padding: '0.4rem 0.8rem', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
+          >
+            LOGOUT
+          </button>
+        </div>
 
-        <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: '2.5rem', marginTop: '0.5rem', textShadow: '4px 4px 0px rgba(0,0,0,0.8)' }}>
+        <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: '2rem', marginTop: 0, textShadow: '4px 4px 0px rgba(0,0,0,0.8)', wordBreak: 'break-word' }}>
           DASHBOARD
         </h1>
         
-        <p style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.9rem' }}>Logged in as: {session?.user?.email}</p>
+        <p style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.8rem', wordBreak: 'break-all', color: '#ccc' }}>
+          Logged in as: <span style={{ color: 'white' }}>{session?.user?.email}</span>
+        </p>
 
         {!team ? (
           <div style={{ textAlign: 'center', padding: '2rem', backgroundColor: '#111', border: '2px dashed #444', borderRadius: '10px' }}>
@@ -116,39 +121,28 @@ const Dashboard = () => {
               TEAM: <span style={{ color: 'var(--neon-green)' }}>{team.team_name}</span>
             </h2>
             
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#111', borderRadius: '10px', overflow: 'hidden', fontSize: '0.95rem' }}>
-                <thead>
-                  <tr style={{ backgroundColor: 'var(--solid-bg)', borderBottom: '2px solid var(--pixel-border)' }}>
-                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Role</th>
-                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Name</th>
-                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Gender</th>
-                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Stream</th>
-                    <th style={{ padding: '0.75rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Year</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* LEADER */}
-                  <tr style={{ borderBottom: '1px solid #333' }}>
-                    <td style={{ padding: '0.75rem', color: '#bd84db', fontWeight: 'bold' }}>Leader</td>
-                    <td style={{ padding: '0.75rem' }}>{team.leader_name}</td>
-                    <td style={{ padding: '0.75rem' }}>{team.leader_gender}</td>
-                    <td style={{ padding: '0.75rem' }}>{team.leader_stream}</td>
-                    <td style={{ padding: '0.75rem' }}>{team.leader_year}</td>
-                  </tr>
-                  
-                  {/* MEMBERS */}
-                  {team.members_data && Array.isArray(team.members_data) && team.members_data.map((member, index) => (
-                    <tr key={index} style={{ borderBottom: '1px solid #333' }}>
-                      <td style={{ padding: '0.75rem', color: '#888' }}>Member {index + 1}</td>
-                      <td style={{ padding: '0.75rem' }}>{member.name || 'N/A'}</td>
-                      <td style={{ padding: '0.75rem' }}>{member.gender || 'N/A'}</td>
-                      <td style={{ padding: '0.75rem' }}>{member.stream || 'N/A'}</td>
-                      <td style={{ padding: '0.75rem' }}>{member.year || 'N/A'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="team-members-grid">
+              
+              {/* LEADER CARD */}
+              <div className="member-card">
+                <div className="member-role leader">Leader</div>
+                <div className="member-name">{team.leader_name}</div>
+                <div className="member-detail">Gender: <span>{team.leader_gender}</span></div>
+                <div className="member-detail">Stream: <span>{team.leader_stream}</span></div>
+                <div className="member-detail">Year: <span>{team.leader_year}</span></div>
+              </div>
+
+              {/* MEMBER CARDS */}
+              {team.members_data && Array.isArray(team.members_data) && team.members_data.map((member, index) => (
+                <div key={index} className="member-card">
+                  <div className="member-role">Member {index + 1}</div>
+                  <div className="member-name">{member.name || 'N/A'}</div>
+                  <div className="member-detail">Gender: <span>{member.gender || 'N/A'}</span></div>
+                  <div className="member-detail">Stream: <span>{member.stream || 'N/A'}</span></div>
+                  <div className="member-detail">Year: <span>{member.year || 'N/A'}</span></div>
+                </div>
+              ))}
+              
             </div>
           </div>
         )}
