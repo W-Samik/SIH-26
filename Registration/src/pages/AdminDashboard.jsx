@@ -14,13 +14,15 @@ const AdminDashboard = () => {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
+  const [needsLogin, setNeedsLogin] = useState(false);
 
   useEffect(() => {
     const fetchAdminData = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
-        navigate('/');
+        setNeedsLogin(true);
+        setLoading(false);
         return;
       }
 
@@ -59,6 +61,23 @@ const AdminDashboard = () => {
     return (
       <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)' }}>
         <h2>LOADING ADMIN...</h2>
+      </div>
+    );
+  }
+
+  if (needsLogin) {
+    return (
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)' }}>
+        <h2 style={{ color: 'var(--neon-green)', marginBottom: '2rem' }}>ADMIN LOGIN REQUIRED</h2>
+        <button 
+          className="pixel-btn" 
+          onClick={() => supabase.auth.signInWithOAuth({ 
+            provider: 'google',
+            options: { redirectTo: window.location.origin + '/admin' }
+          })}
+        >
+          LOGIN WITH GOOGLE
+        </button>
       </div>
     );
   }
