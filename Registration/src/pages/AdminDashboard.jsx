@@ -67,8 +67,8 @@ const AdminDashboard = () => {
 
   if (needsLogin) {
     return (
-      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)' }}>
-        <h2 style={{ color: 'var(--neon-green)', marginBottom: '2rem' }}>ADMIN LOGIN REQUIRED</h2>
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)', padding: '2rem', textAlign: 'center' }}>
+        <h2 style={{ color: 'var(--neon-green)', marginBottom: '2rem', fontSize: 'clamp(1.5rem, 8vw, 2.5rem)' }}>ADMIN LOGIN REQUIRED</h2>
         <button 
           className="pixel-btn" 
           onClick={() => supabase.auth.signInWithOAuth({ 
@@ -84,9 +84,9 @@ const AdminDashboard = () => {
 
   if (accessDenied) {
     return (
-      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)' }}>
-        <h2 style={{ color: 'red', marginBottom: '2rem' }}>ACCESS DENIED</h2>
-        <p style={{ marginBottom: '2rem' }}>You do not have administrative privileges.</p>
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)', padding: '2rem', textAlign: 'center' }}>
+        <h2 style={{ color: 'red', marginBottom: '2rem', fontSize: 'clamp(1.5rem, 8vw, 3rem)' }}>ACCESS DENIED</h2>
+        <p style={{ marginBottom: '2rem', fontSize: 'clamp(0.8rem, 4vw, 1.2rem)', lineHeight: '1.5' }}>You do not have administrative privileges.</p>
         <button className="pixel-btn" onClick={() => navigate('/')}>RETURN HOME</button>
       </div>
     );
@@ -116,47 +116,75 @@ const AdminDashboard = () => {
         boxShadow: '10px 10px 0px rgba(0, 0, 0, 0.8)',
         color: 'white',
         position: 'relative',
+  return (
+    <div style={{ 
+      minHeight: '100vh',
+      width: '100%',
+      backgroundImage: `url(${pixelSpace})`, 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center',
+      imageRendering: 'pixelated',
+      padding: '2rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      boxSizing: 'border-box'
+    }}>
+      
+      <div style={{
+        width: '100%',
+        maxWidth: '1200px',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        border: '4px solid var(--pixel-border)',
+        borderRadius: '20px',
+        padding: '2rem',
+        boxShadow: '10px 10px 0px rgba(0, 0, 0, 0.8)',
+        color: 'white',
+        position: 'relative',
         fontFamily: 'var(--font-main)'
       }}>
         
-        <button 
-          onClick={() => navigate('/')} 
-          style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', background: 'transparent', color: 'white', border: 'none', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
-        >
-          &lt; BACK
-        </button>
-        
-        <button 
-          onClick={handleLogout} 
-          style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'transparent', color: 'var(--neon-green)', border: '2px solid var(--neon-green)', padding: '0.4rem 0.8rem', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
-        >
-          LOGOUT
-        </button>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <button 
+            onClick={() => navigate('/')} 
+            style={{ background: 'transparent', color: 'white', border: 'none', fontFamily: 'var(--font-pixel)', cursor: 'pointer', padding: 0 }}
+          >
+            &lt; BACK
+          </button>
+          
+          <button 
+            onClick={handleLogout} 
+            style={{ background: 'transparent', color: 'var(--neon-green)', border: '2px solid var(--neon-green)', padding: '0.4rem 0.8rem', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
+          >
+            LOGOUT
+          </button>
+        </div>
 
-        <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: '2.5rem', marginTop: '1rem', textShadow: '4px 4px 0px rgba(0,0,0,0.8)' }}>
+        <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: 'clamp(1.2rem, 8vw, 2.5rem)', marginTop: '0', textShadow: '4px 4px 0px rgba(0,0,0,0.8)', wordBreak: 'break-word' }}>
           ADMIN DASHBOARD
         </h1>
         
-        <p style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '0.9rem', color: '#888' }}>
-          Logged in as Admin: {session?.user?.email}
+        <p style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '0.8rem', color: '#ccc', wordBreak: 'break-all' }}>
+          Logged in as Admin: <span style={{ color: 'white' }}>{session?.user?.email}</span>
         </p>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '2rem' }}>
-          <div style={{ backgroundColor: '#111', padding: '1.5rem', borderRadius: '10px', border: '2px dashed var(--neon-green)', textAlign: 'center' }}>
-            <h3 style={{ fontFamily: 'var(--font-pixel)', marginBottom: '0.5rem' }}>TOTAL TEAMS</h3>
+        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '2rem', marginBottom: '2rem' }}>
+          <div style={{ backgroundColor: '#111', padding: '1.5rem', borderRadius: '10px', border: '2px dashed var(--neon-green)', textAlign: 'center', flex: '1', minWidth: '200px' }}>
+            <h3 style={{ fontFamily: 'var(--font-pixel)', marginBottom: '0.5rem', fontSize: 'clamp(0.8rem, 4vw, 1.2rem)' }}>TOTAL TEAMS</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--neon-green)' }}>{teams.length}</p>
           </div>
-          <div style={{ backgroundColor: '#111', padding: '1.5rem', borderRadius: '10px', border: '2px dashed #bd84db', textAlign: 'center' }}>
-            <h3 style={{ fontFamily: 'var(--font-pixel)', marginBottom: '0.5rem' }}>TOTAL PARTICIPANTS</h3>
+          <div style={{ backgroundColor: '#111', padding: '1.5rem', borderRadius: '10px', border: '2px dashed #bd84db', textAlign: 'center', flex: '1', minWidth: '200px' }}>
+            <h3 style={{ fontFamily: 'var(--font-pixel)', marginBottom: '0.5rem', fontSize: 'clamp(0.8rem, 4vw, 1.2rem)' }}>TOTAL PARTICIPANTS</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold', color: '#bd84db' }}>{teams.length * 6}</p>
           </div>
         </div>
 
-        <h2 style={{ fontFamily: 'var(--font-pixel)', borderBottom: '2px solid #333', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
+        <h2 style={{ fontFamily: 'var(--font-pixel)', borderBottom: '2px solid #333', paddingBottom: '0.5rem', marginBottom: '1rem', fontSize: 'clamp(1rem, 5vw, 1.5rem)' }}>
           REGISTERED TEAMS
         </h2>
         
-        <div style={{ overflowX: 'auto' }}>
+        {/* DESKTOP TABLE */}
+        <div className="dashboard-desktop-table">
           <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#111', borderRadius: '10px', overflow: 'hidden', fontSize: '0.9rem' }}>
             <thead>
               <tr style={{ backgroundColor: 'var(--solid-bg)', borderBottom: '2px solid var(--pixel-border)' }}>
@@ -204,6 +232,40 @@ const AdminDashboard = () => {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* MOBILE CARDS */}
+        <div className="dashboard-mobile-cards team-members-grid">
+          {teams.length === 0 ? (
+            <div style={{ padding: '2rem', textAlign: 'center', color: '#888', gridColumn: '1 / -1' }}>No teams registered yet.</div>
+          ) : (
+            teams.map((team) => (
+              <div key={team.id} className="member-card">
+                <div className="member-role leader">Team #{team.id}</div>
+                <div className="member-name">{team.team_name}</div>
+                <div className="member-detail">Leader: <span>{team.leader_name}</span></div>
+                <div className="member-detail">Email: <span>{team.leader_email}</span></div>
+                <div className="member-detail">Mobile: <span>{team.leader_phone}</span></div>
+                
+                <button 
+                  onClick={() => navigate('/admin/edit', { state: { team } })}
+                  style={{
+                    background: 'transparent',
+                    color: '#f0ad4e',
+                    border: '2px solid #f0ad4e',
+                    padding: '0.5rem 1rem',
+                    fontFamily: 'var(--font-pixel)',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    marginTop: '1rem',
+                    width: '100%'
+                  }}
+                >
+                  [EDIT TEAM]
+                </button>
+              </div>
+            ))
+          )}
         </div>
 
       </div>
