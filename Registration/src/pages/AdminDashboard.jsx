@@ -94,30 +94,6 @@ const AdminDashboard = () => {
 
   return (
     <div style={{ 
-      minHeight: '100vh', 
-      backgroundImage: `url(${pixelSpace})`, 
-      backgroundSize: 'cover', 
-      backgroundPosition: 'center',
-      imageRendering: 'pixelated',
-      padding: '2rem',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      boxSizing: 'border-box'
-    }}>
-      
-      <div style={{
-        width: '100%',
-        maxWidth: '1200px',
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-        border: '4px solid var(--pixel-border)',
-        borderRadius: '20px',
-        padding: '2rem',
-        boxShadow: '10px 10px 0px rgba(0, 0, 0, 0.8)',
-        color: 'white',
-        position: 'relative',
-  return (
-    <div style={{ 
       minHeight: '100vh',
       width: '100%',
       backgroundImage: `url(${pixelSpace})`, 
