@@ -323,6 +323,15 @@ h1, h2, h3, h4, p, span, button, a {
   background: rgba(255,255,255,0.2);
 }
 
+@media (max-width: 768px) {
+  .user-pill {
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+  }
+}
+
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
   .space-bg {
