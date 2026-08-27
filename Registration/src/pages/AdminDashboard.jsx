@@ -5,6 +5,8 @@ import pixelSpace from '../assets/pixel_space.jpg';
 
 const ADMIN_EMAILS = [
   'sam8920341517@gmail.com',
+  'gankitsysdev@gmail.com',
+
   // Add other admin emails here
 ];
 
@@ -19,7 +21,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      
+
       if (!session) {
         setNeedsLogin(true);
         setLoading(false);
@@ -31,9 +33,9 @@ const AdminDashboard = () => {
         setLoading(false);
         return;
       }
-      
+
       setSession(session);
-      
+
       try {
         const { data, error } = await supabase
           .from('registrations')
@@ -69,9 +71,9 @@ const AdminDashboard = () => {
     return (
       <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0a0a0a', color: 'white', fontFamily: 'var(--font-pixel)', padding: '2rem', textAlign: 'center' }}>
         <h2 style={{ color: 'var(--neon-green)', marginBottom: '2rem', fontSize: 'clamp(1.5rem, 8vw, 2.5rem)' }}>ADMIN LOGIN REQUIRED</h2>
-        <button 
-          className="pixel-btn" 
-          onClick={() => supabase.auth.signInWithOAuth({ 
+        <button
+          className="pixel-btn"
+          onClick={() => supabase.auth.signInWithOAuth({
             provider: 'google',
             options: { redirectTo: window.location.origin + '/admin' }
           })}
@@ -93,11 +95,11 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div style={{ 
+    <div style={{
       minHeight: '100vh',
       width: '100%',
-      backgroundImage: `url(${pixelSpace})`, 
-      backgroundSize: 'cover', 
+      backgroundImage: `url(${pixelSpace})`,
+      backgroundSize: 'cover',
       backgroundPosition: 'center',
       imageRendering: 'pixelated',
       padding: '2rem',
@@ -106,7 +108,7 @@ const AdminDashboard = () => {
       alignItems: 'center',
       boxSizing: 'border-box'
     }}>
-      
+
       <div style={{
         width: '100%',
         maxWidth: '1200px',
@@ -119,17 +121,17 @@ const AdminDashboard = () => {
         position: 'relative',
         fontFamily: 'var(--font-main)'
       }}>
-        
+
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <button 
-            onClick={() => navigate('/')} 
+          <button
+            onClick={() => navigate('/')}
             style={{ background: 'transparent', color: 'white', border: 'none', fontFamily: 'var(--font-pixel)', cursor: 'pointer', padding: 0 }}
           >
             &lt; BACK
           </button>
-          
-          <button 
-            onClick={handleLogout} 
+
+          <button
+            onClick={handleLogout}
             style={{ background: 'transparent', color: 'var(--neon-green)', border: '2px solid var(--neon-green)', padding: '0.4rem 0.8rem', fontFamily: 'var(--font-pixel)', cursor: 'pointer' }}
           >
             LOGOUT
@@ -139,7 +141,7 @@ const AdminDashboard = () => {
         <h1 style={{ fontFamily: 'var(--font-pixel)', color: 'var(--neon-green)', textAlign: 'center', fontSize: 'clamp(1.2rem, 8vw, 2.5rem)', marginTop: '0', textShadow: '4px 4px 0px rgba(0,0,0,0.8)', wordBreak: 'break-word' }}>
           ADMIN DASHBOARD
         </h1>
-        
+
         <p style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '0.8rem', color: '#ccc', wordBreak: 'break-all' }}>
           Logged in as Admin: <span style={{ color: 'white' }}>{session?.user?.email}</span>
         </p>
@@ -158,7 +160,7 @@ const AdminDashboard = () => {
         <h2 style={{ fontFamily: 'var(--font-pixel)', borderBottom: '2px solid #333', paddingBottom: '0.5rem', marginBottom: '1rem', fontSize: 'clamp(1rem, 5vw, 1.5rem)' }}>
           REGISTERED TEAMS
         </h2>
-        
+
         {/* DESKTOP TABLE */}
         <div className="dashboard-desktop-table">
           <table style={{ width: '100%', borderCollapse: 'collapse', backgroundColor: '#111', borderRadius: '10px', overflow: 'hidden', fontSize: '0.9rem' }}>
@@ -186,7 +188,7 @@ const AdminDashboard = () => {
                     <td style={{ padding: '0.75rem 0.5rem' }}>{team.leader_email}</td>
                     <td style={{ padding: '0.75rem 0.5rem' }}>{team.leader_phone}</td>
                     <td style={{ padding: '0.75rem 0.5rem', textAlign: 'center', whiteSpace: 'nowrap' }}>
-                      <button 
+                      <button
                         onClick={() => navigate('/admin/edit', { state: { team } })}
                         style={{
                           background: 'transparent',
@@ -222,8 +224,8 @@ const AdminDashboard = () => {
                 <div className="member-detail">Leader: <span>{team.leader_name}</span></div>
                 <div className="member-detail">Email: <span>{team.leader_email}</span></div>
                 <div className="member-detail">Mobile: <span>{team.leader_phone}</span></div>
-                
-                <button 
+
+                <button
                   onClick={() => navigate('/admin/edit', { state: { team } })}
                   style={{
                     background: 'transparent',
