@@ -419,6 +419,7 @@ const Registration = () => {
                   <div className="form-group stream-group">
                     <label>Stream / Course *</label>
                     <select value={member.stream} onChange={e => updateMember(index, 'stream', e.target.value)}>
+                      <option value="">Select Course</option>
                       <option value="B.Tech AIML">B.Tech AI</option>
                       <option value="B.Tech DS">B.Tech DS</option>
                       <option value="BCA">BCA</option>
