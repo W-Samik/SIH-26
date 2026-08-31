@@ -300,14 +300,13 @@ const AdminEditTeam = () => {
                 <label>Stream / Course *</label>
                 <select value={leader.stream} onChange={e => setLeader({ ...leader, stream: e.target.value })}>
                   <option value="">Select Course</option>
-                  <option value="B.Tech CSE">B.Tech CSE</option>
-                  <option value="B.Tech IT">B.Tech IT</option>
-                  <option value="B.Tech ECE">B.Tech ECE</option>
-                  <option value="B.Tech ME">B.Tech ME</option>
+                  <option value="B.Tech AIML">B.Tech AI</option>
+                  <option value="B.Tech DS">B.Tech DS</option>
                   <option value="BCA">BCA</option>
                   <option value="MCA">MCA</option>
                   <option value="BBA">BBA</option>
-                  <option value="Other">Other</option>
+                  <option value="MBA">MBA</option>
+                  <option value="B.Sc">B.Sc DA</option>
                 </select>
               </div>
               <div className="form-group year-group">
@@ -318,7 +317,6 @@ const AdminEditTeam = () => {
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  <option value="5">5</option>
                 </select>
               </div>
             </div>
@@ -365,14 +363,13 @@ const AdminEditTeam = () => {
                     <label>Stream / Course *</label>
                     <select value={member.stream} onChange={e => updateMember(index, 'stream', e.target.value)}>
                       <option value="">Select Course</option>
-                      <option value="B.Tech CSE">B.Tech CSE</option>
-                      <option value="B.Tech IT">B.Tech IT</option>
-                      <option value="B.Tech ECE">B.Tech ECE</option>
-                      <option value="B.Tech ME">B.Tech ME</option>
+                      <option value="B.Tech AIML">B.Tech AI</option>
+                      <option value="B.Tech DS">B.Tech DS</option>
                       <option value="BCA">BCA</option>
                       <option value="MCA">MCA</option>
                       <option value="BBA">BBA</option>
-                      <option value="Other">Other</option>
+                      <option value="MBA">MBA</option>
+                      <option value="B.Sc">B.Sc DA</option>
                     </select>
                   </div>
                   <div className="form-group year-group">
@@ -383,7 +380,6 @@ const AdminEditTeam = () => {
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
-                      <option value="5">5</option>
                     </select>
                   </div>
                 </div>
