@@ -6,7 +6,10 @@ import '../styles/registration.css';
 const ADMIN_EMAILS = [
   'sam8920341517@gmail.com',
   'gankitsysdev@gmail.com',
+<<<<<<< HEAD
   'rishiry6789@gmail.com'
+=======
+>>>>>>> b51fb16cfc7183a3eca093993ca5ddf5d2ab4076
 ];
 
 const AdminEditTeam = () => {
@@ -42,7 +45,7 @@ const AdminEditTeam = () => {
     const checkAdminAndPopulate = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
-        
+
         if (!session || !ADMIN_EMAILS.includes(session.user.email)) {
           setAccessDenied(true);
           return;
@@ -152,7 +155,7 @@ const AdminEditTeam = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    
+
     setLoading(true);
 
     try {
@@ -241,7 +244,7 @@ const AdminEditTeam = () => {
     <div className="registration-page">
       <div className="registration-container">
         <button className="back-btn" onClick={() => navigate('/admin')}>&lt; Back to Admin</button>
-        
+
         <h2 className="reg-title">EDIT TEAM</h2>
         <div className="reg-notice">
           ADMIN MODE: Editing details for Team ID #{editTeam.id}
@@ -258,7 +261,7 @@ const AdminEditTeam = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          
+
           <div className="reg-section">
             <h3>Team Details</h3>
             <div className="form-group">
@@ -269,16 +272,16 @@ const AdminEditTeam = () => {
 
           <div className="reg-section">
             <h3>Team Leader</h3>
-            
+
             <div className="form-group">
               <label>Full Name *</label>
-              <input type="text" value={leader.name} onChange={e => setLeader({...leader, name: e.target.value})} />
+              <input type="text" value={leader.name} onChange={e => setLeader({ ...leader, name: e.target.value })} />
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label>Gender *</label>
-                <select value={leader.gender} onChange={e => setLeader({...leader, gender: e.target.value})}>
+                <select value={leader.gender} onChange={e => setLeader({ ...leader, gender: e.target.value })}>
                   <option value="">Select</option>
                   <option value="M">Male (M)</option>
                   <option value="F">Female (F)</option>
@@ -287,39 +290,37 @@ const AdminEditTeam = () => {
               </div>
               <div className="form-group">
                 <label>Mobile No. *</label>
-                <input type="tel" maxLength="10" value={leader.phone} onChange={e => setLeader({...leader, phone: String(e.target.value).replace(/\D/g, '')})} />
+                <input type="tel" maxLength="10" value={leader.phone} onChange={e => setLeader({ ...leader, phone: String(e.target.value).replace(/\D/g, '') })} />
               </div>
             </div>
 
             <div className="form-group">
               <label>Email ID *</label>
-              <input type="email" value={leader.email} onChange={e => setLeader({...leader, email: e.target.value})} />
+              <input type="email" value={leader.email} onChange={e => setLeader({ ...leader, email: e.target.value })} />
             </div>
 
             <div className="form-row">
               <div className="form-group stream-group">
                 <label>Stream / Course *</label>
-                <select value={leader.stream} onChange={e => setLeader({...leader, stream: e.target.value})}>
+                <select value={leader.stream} onChange={e => setLeader({ ...leader, stream: e.target.value })}>
                   <option value="">Select Course</option>
-                  <option value="B.Tech CSE">B.Tech CSE</option>
-                  <option value="B.Tech IT">B.Tech IT</option>
-                  <option value="B.Tech ECE">B.Tech ECE</option>
-                  <option value="B.Tech ME">B.Tech ME</option>
+                  <option value="B.Tech AIML">B.Tech AI</option>
+                  <option value="B.Tech DS">B.Tech DS</option>
                   <option value="BCA">BCA</option>
                   <option value="MCA">MCA</option>
                   <option value="BBA">BBA</option>
-                  <option value="Other">Other</option>
+                  <option value="MBA">MBA</option>
+                  <option value="B.Sc">B.Sc DA</option>
                 </select>
               </div>
               <div className="form-group year-group">
                 <label>Academic Year *</label>
-                <select value={leader.year} onChange={e => setLeader({...leader, year: e.target.value})}>
+                <select value={leader.year} onChange={e => setLeader({ ...leader, year: e.target.value })}>
                   <option value="">Select</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
-                  <option value="5">5</option>
                 </select>
               </div>
             </div>
@@ -327,14 +328,14 @@ const AdminEditTeam = () => {
 
           <div className="reg-section">
             <h3>Team Members ({members.length}/5)</h3>
-            
+
             {members.map((member, index) => (
               <div key={index} className="member-card">
                 <div className="member-header">
                   <h4>Member {index + 1}</h4>
                   <button type="button" className="remove-btn" onClick={() => handleRemoveMember(index)}>Remove X</button>
                 </div>
-                
+
                 <div className="form-group">
                   <label>Full Name *</label>
                   <input type="text" value={member.name} onChange={e => updateMember(index, 'name', e.target.value)} />
@@ -366,14 +367,13 @@ const AdminEditTeam = () => {
                     <label>Stream / Course *</label>
                     <select value={member.stream} onChange={e => updateMember(index, 'stream', e.target.value)}>
                       <option value="">Select Course</option>
-                      <option value="B.Tech CSE">B.Tech CSE</option>
-                      <option value="B.Tech IT">B.Tech IT</option>
-                      <option value="B.Tech ECE">B.Tech ECE</option>
-                      <option value="B.Tech ME">B.Tech ME</option>
+                      <option value="B.Tech AIML">B.Tech AI</option>
+                      <option value="B.Tech DS">B.Tech DS</option>
                       <option value="BCA">BCA</option>
                       <option value="MCA">MCA</option>
                       <option value="BBA">BBA</option>
-                      <option value="Other">Other</option>
+                      <option value="MBA">MBA</option>
+                      <option value="B.Sc">B.Sc DA</option>
                     </select>
                   </div>
                   <div className="form-group year-group">
@@ -384,7 +384,6 @@ const AdminEditTeam = () => {
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
-                      <option value="5">5</option>
                     </select>
                   </div>
                 </div>
