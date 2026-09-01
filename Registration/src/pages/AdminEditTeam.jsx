@@ -6,10 +6,7 @@ import '../styles/registration.css';
 const ADMIN_EMAILS = [
   'sam8920341517@gmail.com',
   'gankitsysdev@gmail.com',
-<<<<<<< HEAD
   'rishiry6789@gmail.com'
-=======
->>>>>>> b51fb16cfc7183a3eca093993ca5ddf5d2ab4076
 ];
 
 const AdminEditTeam = () => {
