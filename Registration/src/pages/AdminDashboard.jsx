@@ -6,7 +6,7 @@ import pixelSpace from '../assets/pixel_space.jpg';
 const ADMIN_EMAILS = [
   'sam8920341517@gmail.com',
   'gankitsysdev@gmail.com',
-  'rishiry6789@gmail.com'
+  'rishiry6789@gmail.com',
 
   // Add other admin emails here
 ];
