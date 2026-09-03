@@ -175,8 +175,8 @@ const Registration = () => {
         const { data, error } = await supabase
           .from('registrations')
           .select('team_name')
-          .or(`leader_email.eq.${email},members_data.cs.[{"email":"${email}"}],leader_phone.eq.${phone},members_data.cs.[{"phone":${phone}}],leader_name.eq."${safeName}",members_data.cs.[{"name":"${safeName}"}]`);
-
+          .or(`leader_email.eq.${email},members_data.cs.[{"email":"${email}"}],leader_phone.eq.${phone},members_data.cs.[{"phone":${phone}}]`);
+        
         if (error) throw error;
         if (data && data.length > 0) {
           return { email, phone, name, team: data[0].team_name };
