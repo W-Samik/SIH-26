@@ -9,6 +9,71 @@ const Dashboard = () => {
   const [team, setTeam] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // PPT Upload State
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+
+    if (selectedFile.type !== 'application/pdf') {
+      setUploadError('Only PDF files are allowed.');
+      setFile(null);
+      return;
+    }
+
+    if (selectedFile.size > 5 * 1024 * 1024) {
+      setUploadError('File size must be less than 5MB.');
+      setFile(null);
+      return;
+    }
+
+    setUploadError('');
+    setFile(selectedFile);
+  };
+
+  const handleUpload = async () => {
+    if (!file || !team) return;
+    setUploading(true);
+    setUploadError('');
+    setUploadSuccess(false);
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${team.id}_${team.team_name.replace(/[^a-zA-Z0-9]/g, '_')}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('ppts')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('ppts')
+        .getPublicUrl(filePath);
+
+      const { error: dbError } = await supabase
+        .from('registrations')
+        .update({ ppt_url: publicUrl })
+        .eq('id', team.id);
+
+      if (dbError) throw dbError;
+
+      setTeam({ ...team, ppt_url: publicUrl });
+      setUploadSuccess(true);
+      setFile(null);
+    } catch (err) {
+      console.error(err);
+      setUploadError(err.message || 'An error occurred during upload.');
+    } finally {
+      setUploading(false);
+    }
+  };
+
   useEffect(() => {
     const fetchSessionAndTeam = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -179,6 +244,78 @@ const Dashboard = () => {
               ))}
               
             </div>
+
+            {/* PPT SUBMISSION SECTION */}
+            <div style={{ marginTop: '2rem', padding: '1.5rem', backgroundColor: '#111', border: '2px dashed #444', borderRadius: '10px' }}>
+              <h3 style={{ fontFamily: 'var(--font-pixel)', color: 'white', fontSize: '1.2rem', marginBottom: '1rem', borderBottom: '1px solid #333', paddingBottom: '0.5rem' }}>
+                IDEA PPT SUBMISSION
+              </h3>
+              
+              {team.ppt_url ? (
+                <div style={{ marginBottom: '1rem' }}>
+                  <p style={{ color: 'var(--neon-green)', fontWeight: 'bold', marginBottom: '0.5rem' }}>Status: Submitted ✅</p>
+                  <a 
+                    href={team.ppt_url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{ color: '#bd84db', textDecoration: 'underline', fontSize: '0.9rem', display: 'inline-block', marginBottom: '1rem' }}
+                  >
+                    View Submitted PPT
+                  </a>
+                </div>
+              ) : (
+                <p style={{ color: '#f0ad4e', fontWeight: 'bold', marginBottom: '1rem' }}>Status: Pending ❌</p>
+              )}
+
+              {/* Only the Team Leader can upload/re-upload */}
+              {session?.user?.email === team.leader_email ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  <p style={{ fontSize: '0.8rem', color: '#888' }}>
+                    {team.ppt_url ? "Upload a new PDF to overwrite the existing submission." : "Please upload your Idea PPT as a PDF document."} <br/>
+                    <span style={{ color: '#f0ad4e' }}>Max file size: 5MB. Format: .pdf only.</span>
+                  </p>
+                  
+                  <input 
+                    type="file" 
+                    accept="application/pdf"
+                    onChange={handleFileChange}
+                    style={{
+                      fontFamily: 'var(--font-main)',
+                      padding: '0.5rem',
+                      backgroundColor: 'rgba(0,0,0,0.5)',
+                      border: '1px solid #555',
+                      color: 'white',
+                      borderRadius: '5px'
+                    }}
+                  />
+
+                  {uploadError && <p style={{ color: 'red', fontSize: '0.85rem', margin: 0 }}>{uploadError}</p>}
+                  {uploadSuccess && <p style={{ color: 'var(--neon-green)', fontSize: '0.85rem', margin: 0 }}>File uploaded successfully!</p>}
+
+                  <button 
+                    onClick={handleUpload}
+                    disabled={!file || uploading}
+                    style={{
+                      backgroundColor: (!file || uploading) ? '#555' : 'var(--neon-green)',
+                      color: 'black',
+                      fontFamily: 'var(--font-pixel)',
+                      padding: '0.8rem',
+                      border: 'none',
+                      cursor: (!file || uploading) ? 'not-allowed' : 'pointer',
+                      fontSize: '1rem',
+                      marginTop: '0.5rem'
+                    }}
+                  >
+                    {uploading ? 'UPLOADING...' : 'SUBMIT PPT'}
+                  </button>
+                </div>
+              ) : (
+                <p style={{ fontSize: '0.85rem', color: '#888', fontStyle: 'italic' }}>
+                  Only the Team Leader ({team.leader_name}) can submit or update the Idea PPT.
+                </p>
+              )}
+            </div>
+
           </div>
         )}
 

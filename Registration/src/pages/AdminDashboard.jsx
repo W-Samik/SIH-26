@@ -172,6 +172,7 @@ const AdminDashboard = () => {
                 <th style={{ padding: '0.75rem 0.5rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Leader Name</th>
                 <th style={{ padding: '0.75rem 0.5rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Leader Email</th>
                 <th style={{ padding: '0.75rem 0.5rem', textAlign: 'left', fontFamily: 'var(--font-pixel)' }}>Leader Phone</th>
+                <th style={{ padding: '0.75rem 0.5rem', textAlign: 'center', fontFamily: 'var(--font-pixel)' }}>PPT</th>
                 <th style={{ padding: '0.75rem 0.5rem', textAlign: 'center', fontFamily: 'var(--font-pixel)' }}>Action</th>
               </tr>
             </thead>
@@ -188,6 +189,32 @@ const AdminDashboard = () => {
                     <td style={{ padding: '0.75rem 0.5rem' }}>{team.leader_name}</td>
                     <td style={{ padding: '0.75rem 0.5rem' }}>{team.leader_email}</td>
                     <td style={{ padding: '0.75rem 0.5rem' }}>{team.leader_phone}</td>
+                    <td style={{ padding: '0.75rem 0.5rem', textAlign: 'center', whiteSpace: 'nowrap' }}>
+                      {team.ppt_url ? (
+                        <a 
+                          href={team.ppt_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          style={{
+                            background: 'transparent',
+                            color: '#bd84db',
+                            border: '2px solid #bd84db',
+                            padding: '0.3rem 0.6rem',
+                            fontFamily: 'var(--font-pixel)',
+                            cursor: 'pointer',
+                            fontSize: '0.8rem',
+                            whiteSpace: 'nowrap',
+                            minWidth: '60px',
+                            display: 'inline-block',
+                            textDecoration: 'none'
+                          }}
+                        >
+                          [VIEW]
+                        </a>
+                      ) : (
+                        <span style={{ color: '#555', fontSize: '0.8rem' }}>None</span>
+                      )}
+                    </td>
                     <td style={{ padding: '0.75rem 0.5rem', textAlign: 'center', whiteSpace: 'nowrap' }}>
                       <button
                         onClick={() => navigate('/admin/edit', { state: { team } })}
@@ -226,22 +253,49 @@ const AdminDashboard = () => {
                 <div className="member-detail">Email: <span>{team.leader_email}</span></div>
                 <div className="member-detail">Mobile: <span>{team.leader_phone}</span></div>
 
-                <button
-                  onClick={() => navigate('/admin/edit', { state: { team } })}
-                  style={{
-                    background: 'transparent',
-                    color: '#f0ad4e',
-                    border: '2px solid #f0ad4e',
-                    padding: '0.5rem 1rem',
-                    fontFamily: 'var(--font-pixel)',
-                    cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    marginTop: '1rem',
-                    width: '100%'
-                  }}
-                >
-                  [EDIT TEAM]
-                </button>
+                <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+                  {team.ppt_url ? (
+                    <a
+                      href={team.ppt_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{
+                        flex: 1,
+                        background: 'transparent',
+                        color: '#bd84db',
+                        border: '2px solid #bd84db',
+                        padding: '0.5rem 0.5rem',
+                        fontFamily: 'var(--font-pixel)',
+                        cursor: 'pointer',
+                        fontSize: '0.8rem',
+                        textAlign: 'center',
+                        textDecoration: 'none'
+                      }}
+                    >
+                      [VIEW PPT]
+                    </a>
+                  ) : (
+                    <div style={{ flex: 1, padding: '0.5rem 0.5rem', border: '2px dashed #444', color: '#555', textAlign: 'center', fontSize: '0.8rem', fontFamily: 'var(--font-pixel)' }}>
+                      NO PPT
+                    </div>
+                  )}
+
+                  <button
+                    onClick={() => navigate('/admin/edit', { state: { team } })}
+                    style={{
+                      flex: 1,
+                      background: 'transparent',
+                      color: '#f0ad4e',
+                      border: '2px solid #f0ad4e',
+                      padding: '0.5rem 0.5rem',
+                      fontFamily: 'var(--font-pixel)',
+                      cursor: 'pointer',
+                      fontSize: '0.8rem'
+                    }}
+                  >
+                    [EDIT TEAM]
+                  </button>
+                </div>
               </div>
             ))
           )}
