@@ -9,6 +9,30 @@ const Registration = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // Countdown Timer State
+  const deadline = new Date('2026-09-06T00:00:00+05:30').getTime();
+  const [timeLeft, setTimeLeft] = useState(deadline - new Date().getTime());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const remaining = deadline - new Date().getTime();
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [deadline]);
+
+  const formatTime = (ms) => {
+    if (ms <= 0) return "00:00:00";
+    const totalSeconds = Math.floor(ms / 1000);
+    const h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    const m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    const s = String(totalSeconds % 60).padStart(2, '0');
+    return `${h}:${m}:${s}`;
+  };
+
   // Auth & Existing Registration Check
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
@@ -239,9 +263,8 @@ const Registration = () => {
     );
   }
 
-  // Registration Deadline Check (Sep 5 2026, 12:00 PM IST)
-  const deadline = new Date('2026-09-05T12:00:00+05:30');
-  const isClosed = new Date() > deadline;
+  // Registration Deadline Check
+  const isClosed = timeLeft <= 0;
 
   if (isClosed) {
     return (
@@ -313,6 +336,13 @@ const Registration = () => {
     <div className="registration-page">
       <div className="registration-container">
         <button className="back-btn" onClick={() => navigate('/')}>&lt; Back to Home</button>
+
+        <div style={{ textAlign: 'center', marginBottom: '1.5rem', border: '2px dashed #f0ad4e', padding: '1rem', backgroundColor: 'rgba(0,0,0,0.5)', marginTop: '1rem' }}>
+          <h3 style={{ margin: 0, color: '#f0ad4e', fontSize: '1.2rem', fontFamily: 'var(--font-pixel)' }}>REGISTRATION CLOSES IN:</h3>
+          <p style={{ margin: '0.5rem 0 0 0', color: 'white', fontSize: '1.8rem', fontFamily: 'var(--font-pixel)', letterSpacing: '2px' }}>
+            {formatTime(timeLeft)}
+          </p>
+        </div>
 
         <h2 className="reg-title">REGISTRATION</h2>
         <div className="reg-notice">
