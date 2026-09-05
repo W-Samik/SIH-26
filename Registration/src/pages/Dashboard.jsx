@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [showReupload, setShowReupload] = useState(false);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -66,6 +67,7 @@ const Dashboard = () => {
       setTeam({ ...team, ppt_url: publicUrl });
       setUploadSuccess(true);
       setFile(null);
+      setShowReupload(false);
     } catch (err) {
       console.error(err);
       setUploadError(err.message || 'An error occurred during upload.');
@@ -270,44 +272,87 @@ const Dashboard = () => {
               {/* Only the Team Leader can upload/re-upload */}
               {session?.user?.email === team.leader_email ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  <p style={{ fontSize: '0.8rem', color: '#888' }}>
-                    {team.ppt_url ? "Upload a new PDF to overwrite the existing submission." : "Please upload your Idea PPT as a PDF document."} <br/>
-                    <span style={{ color: '#f0ad4e' }}>Max file size: 5MB. Format: .pdf only.</span>
-                  </p>
                   
-                  <input 
-                    type="file" 
-                    accept="application/pdf"
-                    onChange={handleFileChange}
-                    style={{
-                      fontFamily: 'var(--font-main)',
-                      padding: '0.5rem',
-                      backgroundColor: 'rgba(0,0,0,0.5)',
-                      border: '1px solid #555',
-                      color: 'white',
-                      borderRadius: '5px'
-                    }}
-                  />
+                  {team.ppt_url && !showReupload ? (
+                    <button 
+                      onClick={() => setShowReupload(true)}
+                      style={{
+                        backgroundColor: 'transparent',
+                        color: '#f0ad4e',
+                        border: '2px solid #f0ad4e',
+                        fontFamily: 'var(--font-pixel)',
+                        padding: '0.6rem',
+                        cursor: 'pointer',
+                        fontSize: '0.9rem',
+                        width: 'fit-content'
+                      }}
+                    >
+                      CHANGE PPT
+                    </button>
+                  ) : (
+                    <>
+                      <p style={{ fontSize: '0.8rem', color: '#888' }}>
+                        {team.ppt_url ? "Upload a new PDF to overwrite the existing submission." : "Please upload your Idea PPT as a PDF document."} <br/>
+                        <span style={{ color: '#f0ad4e' }}>Max file size: 5MB. Format: .pdf only.</span>
+                      </p>
+                      
+                      <input 
+                        type="file" 
+                        accept="application/pdf"
+                        onChange={handleFileChange}
+                        style={{
+                          fontFamily: 'var(--font-main)',
+                          padding: '0.5rem',
+                          backgroundColor: 'rgba(0,0,0,0.5)',
+                          border: '1px solid #555',
+                          color: 'white',
+                          borderRadius: '5px'
+                        }}
+                      />
 
-                  {uploadError && <p style={{ color: 'red', fontSize: '0.85rem', margin: 0 }}>{uploadError}</p>}
-                  {uploadSuccess && <p style={{ color: 'var(--neon-green)', fontSize: '0.85rem', margin: 0 }}>File uploaded successfully!</p>}
+                      {uploadError && <p style={{ color: 'red', fontSize: '0.85rem', margin: 0 }}>{uploadError}</p>}
+                      {uploadSuccess && <p style={{ color: 'var(--neon-green)', fontSize: '0.85rem', margin: 0 }}>File uploaded successfully!</p>}
 
-                  <button 
-                    onClick={handleUpload}
-                    disabled={!file || uploading}
-                    style={{
-                      backgroundColor: (!file || uploading) ? '#555' : 'var(--neon-green)',
-                      color: 'black',
-                      fontFamily: 'var(--font-pixel)',
-                      padding: '0.8rem',
-                      border: 'none',
-                      cursor: (!file || uploading) ? 'not-allowed' : 'pointer',
-                      fontSize: '1rem',
-                      marginTop: '0.5rem'
-                    }}
-                  >
-                    {uploading ? 'UPLOADING...' : 'SUBMIT PPT'}
-                  </button>
+                      <div style={{ display: 'flex', gap: '1rem' }}>
+                        <button 
+                          onClick={handleUpload}
+                          disabled={!file || uploading}
+                          style={{
+                            flex: 1,
+                            backgroundColor: (!file || uploading) ? '#555' : 'var(--neon-green)',
+                            color: 'black',
+                            fontFamily: 'var(--font-pixel)',
+                            padding: '0.8rem',
+                            border: 'none',
+                            cursor: (!file || uploading) ? 'not-allowed' : 'pointer',
+                            fontSize: '1rem',
+                            marginTop: '0.5rem'
+                          }}
+                        >
+                          {uploading ? 'UPLOADING...' : 'SUBMIT PPT'}
+                        </button>
+
+                        {team.ppt_url && (
+                          <button 
+                            onClick={() => setShowReupload(false)}
+                            style={{
+                              flex: 1,
+                              backgroundColor: 'transparent',
+                              color: 'white',
+                              border: '2px solid #555',
+                              fontFamily: 'var(--font-pixel)',
+                              padding: '0.8rem',
+                              cursor: 'pointer',
+                              fontSize: '1rem',
+                              marginTop: '0.5rem'
+                            }}
+                          >
+                            CANCEL
+                          </button>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
               ) : (
                 <p style={{ fontSize: '0.85rem', color: '#888', fontStyle: 'italic' }}>
