@@ -239,6 +239,22 @@ const Registration = () => {
     );
   }
 
+  // Registration Deadline Check (Sep 5 2026, 12:00 PM IST)
+  const deadline = new Date('2026-09-05T12:00:00+05:30');
+  const isClosed = new Date() > deadline;
+
+  if (isClosed) {
+    return (
+      <div className="registration-page centered">
+        <div className="registration-container" style={{ textAlign: 'center' }}>
+          <h2 className="reg-title" style={{ color: '#ff4444' }}>REGISTRATION CLOSED</h2>
+          <p>The registration deadline has passed. We are no longer accepting new teams.</p>
+          <button className="pixel-btn" onClick={() => navigate('/')} style={{ marginTop: '2rem' }}>RETURN HOME</button>
+        </div>
+      </div>
+    );
+  }
+
   if (checkingAuth) {
     return (
       <div className="registration-page centered">
